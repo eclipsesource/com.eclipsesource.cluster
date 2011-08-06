@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+
+<!-- =============================================================== -->
+<!-- Configure the Jetty Server                                      -->
+<!--                                                                 -->
+<!-- Documentation of this file format can be found at:              -->
+<!-- http://docs.codehaus.org/display/JETTY/jetty.xml                -->
+<!--                                                                 -->
+<!-- =============================================================== -->
+
+
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
+
+    <!-- =========================================================== -->
+    <!-- Set connectors                                              -->
+    <!-- =========================================================== -->
+
+    <Call name="addConnector">
+      <Arg>
+          <New class="org.eclipse.jetty.server.nio.SelectChannelConnector">
+            <Set name="port"><SystemProperty name="jetty.port" default="8080"/></Set>
+          </New>
+      </Arg>
+    </Call>
+    
+    <!-- =========================================================== -->
+    <!-- Set handler Collection Structure                            --> 
+    <!-- =========================================================== -->
+
+    <Set name="handler">
+      <New id="Handlers" class="org.eclipse.jetty.server.handler.HandlerCollection">
+        <Set name="handlers">
+         <Array type="org.eclipse.jetty.server.Handler">
+           <Item>
+				<New id="Contexts" class="org.eclipse.jetty.server.handler.ContextHandlerCollection">
+<!-- 
+        <Set name="handlers">
+         <Array type="org.eclipse.jetty.server.Handler">
+           <Item>
+	    <New id="sessionHandler" class="org.eclipse.jetty.server.session.SessionHandler">
+	      <Arg>
+	        <New id="jdbcmgr" class="org.eclipse.jetty.server.session.JDBCSessionManager">
+	          <Set name="idManager">
+	            <Ref id="jdbcidmgr"/>
+	          </Set>
+	        </New>
+	      </Arg>
+	    </New>
+           </Item>
+           </Array>
+           </Set>
+ -->
+			</New>
+           </Item>
+           <Item>
+             <New id="DefaultHandler" class="org.eclipse.jetty.server.handler.DefaultHandler"/>
+           </Item>
+           <Item>
+             <New id="RequestLog" class="org.eclipse.jetty.server.handler.RequestLogHandler"/>
+           </Item>
+         </Array>
+        </Set>
+      </New>
+    </Set>
+
+	<!-- =========================================================== -->
+	<!-- Configure the cluster                                       -->
+	<!-- @see http://wiki.eclipse.org/Jetty/Feature/Session_Clustering_Using_a_Database -->
+	<!-- for more information.                                       -->
+	<!-- =========================================================== -->
+
+	<Set name="sessionIdManager">
+		<New id="jdbcidmgr" class="org.eclipse.jetty.server.session.JDBCSessionIdManager">
+			<Arg>
+				<Ref id="Server" />
+			</Arg>
+			<Set name="workerName"><SystemProperty name="worker.name" default="primary"/></Set>
+			<Call name="setDriverInfo">
+				<Arg>org.h2.Driver</Arg>
+				<Arg>jdbc:h2:tcp://localhost:9101/sessions</Arg>
+			</Call>
+			<Set name="scavengeInterval">60</Set>
+		</New>
+	</Set>
+	<Call name="setAttribute">
+	       <Arg>jdbcIdMgr</Arg>
+	       <Arg><Ref id="jdbcidmgr"/></Arg>
+	</Call>
+	 
+    <!-- =========================================================== -->
+    <!-- Configure the deployment manager                            -->
+    <!--                                                             -->
+    <!-- Sets up 2 monitored dir app providers that are configured   -->
+    <!-- to behave in a similaraly to the legacy ContextDeployer     -->
+    <!-- and WebAppDeployer from previous versions of Jetty.         -->
+    <!-- =========================================================== -->
+    <Call name="addBean">
+      <Arg>
+        <New id="DeploymentManager" class="org.eclipse.jetty.deploy.DeploymentManager">
+          <Set name="contexts">
+            <Ref id="Contexts" />
+          </Set>
+          <Call name="setContextAttribute">
+            <Arg>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern</Arg>
+            <Arg>.*/jsp-api-[^/]*\.jar$|.*/jsp-[^/]*\.jar$</Arg>
+          </Call>
+          <!-- Providers of OSGi Apps -->
+          <Call name="addAppProvider">
+            <Arg>
+              <New class="org.eclipse.jetty.osgi.boot.OSGiAppProvider">
+              <!--
+                <Set name="defaultsDescriptor"><Property name="jetty.home" default="."/>/etc/webdefault.xml</Set>
+              -->
+                <Set name="scanInterval">5</Set>
+                <Set name="contextXmlDir"><Property name="jetty.home" default="." />/contexts</Set>
+                <!-- comma separated list of bundle symbolic names that
+                    contain custom tag libraries (*.tld files)
+                    if those bundles don't exist or can't be loaded no errors or warning will be issued!
+                    this default value is to plug the tld files of the reference implementation of JSF -->
+                <Set name="tldBundles"><Property name="org.eclipse.jetty.osgi.tldsbundles"
+                     default="javax.faces.jsf-impl" /></Set>
+              </New>
+            </Arg>
+          </Call>
+          
+        </New>
+      </Arg>
+    </Call>
+
+    <!-- =========================================================== -->
+    <!-- extra options                                               -->
+    <!-- =========================================================== -->
+    <Set name="stopAtShutdown">true</Set>
+    <Set name="sendServerVersion">true</Set>
+    <Set name="sendDateHeader">true</Set>
+    <Set name="gracefulShutdown">1000</Set>
+
+</Configure>
