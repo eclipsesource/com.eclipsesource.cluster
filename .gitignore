@@ -1,3 +1,4 @@
 com.eclipsesource.cluster.h2/bin
 com.eclipsesource.cluster.h2/*.db
+com.eclipsesource.cluster.jetty.demo.webbundle/bin
 

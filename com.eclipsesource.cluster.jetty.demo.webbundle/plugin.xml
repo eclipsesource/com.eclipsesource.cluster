@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="jetty_demo"
+         point="org.eclipse.core.runtime.products">
+      <product
+            name="jetty_demo">
+         <property
+               name="appName"
+               value="jetty_demo">
+         </property>
+      </product>
+   </extension>
+
+</plugin>

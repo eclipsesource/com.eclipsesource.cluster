@@ -1,0 +1,21 @@
+<?xml version="1.0"  encoding="ISO-8859-1"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+
+	<Get name="server">
+		<Get id="jdbcIdMgr" name="sessionIdManager" />
+	</Get>
+	<Set name="sessionHandler">
+		<New class="org.eclipse.jetty.server.session.SessionHandler">
+			<Arg>
+				<New class="org.eclipse.jetty.server.session.JDBCSessionManager">
+					<Set name="idManager">
+						<Ref id="jdbcIdMgr" />
+					</Set>
+				</New>
+			</Arg>
+		</New>
+	</Set>
+
+</Configure>
