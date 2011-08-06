@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="jetty_demo_primary" uid="jetty_demo_primary" id="com.eclipsesource.cluster.jetty.demo.webbundle.jetty_demo" useFeatures="true" includeLaunchers="true">
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <programArgs>-console -noexit -clean</programArgs>
+      <vmArgs>-Declipse.ignoreApp=true
+-Dosgi.noShutdown=true
+-Dosgi.java.profile=J2SE-1.6.profile
+-Djetty.home.bundle=com.eclipsesource.cluster.jetty.home.bundle</vmArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+   </launcherArgs>
+
+   <launcher>
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
+   <plugins>
+   </plugins>
+
+   <features>
+      <feature id="com.eclipsesource.cluster.jetty.demo.webbundle.feature" version="0.1.0.qualifier"/>
+      <feature id="org.eclipse.equinox.core.feature" version="1.0.0.v20110502-7K7VFBVF7RZHQQHxNc02A66"/>
+      <feature id="com.eclipsesource.cluster.jetty.feature" version="0.1.0.qualifier"/>
+   </features>
+
+   <configurations>
+      <plugin id="com.eclipsesource.cluster.jetty.demo.webbundle" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.jetty.osgi.boot" autoStart="true" startLevel="0" />
+   </configurations>
+
+</product>

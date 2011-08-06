@@ -1,4 +1,13 @@
-com.eclipsesource.cluster.h2/bin
-com.eclipsesource.cluster.h2/*.db
-com.eclipsesource.cluster.jetty.demo.webbundle/bin
+cluster.h2/bin
+cluster.h2/*.db
+jetty.demo.webbundle/bin
+jetty.demo.webbundle/target
+org.eclipse.jetty.server.enable.dynamic.import/bin
+org.eclipse.jetty.server.enable.dynamic.import/target
+repository/target
+jetty.home.bundle/target
+jetty.demo.webbundle/bin
+jetty.demo.webbundle/target
+jetty.feature/target
+jetty.demo.webbundle.feature/target
 

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/com.eclipsesource.cluster.jetty.demo.webbundle.feature_0.1.0.qualifier.jar" id="com.eclipsesource.cluster.jetty.demo.webbundle.feature" version="0.1.0.qualifier">
+      <category name="cluster_jetty_demo"/>
+   </feature>
+   <category-def name="cluster_jetty_demo" label="Clustered Jetty Demo"/>
+</site>

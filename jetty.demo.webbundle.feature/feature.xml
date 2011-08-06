@@ -2,7 +2,7 @@
 <feature
       id="com.eclipsesource.cluster.jetty.demo.webbundle.feature"
       label="com.eclipsesource.cluster.jetty.demo.webbundle.feature"
-      version="1.0.0.qualifier"
+      version="0.1.0.qualifier"
       provider-name="ECLIPSESOURCE">
 
    <description url="http://www.example.com/description">
