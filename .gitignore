@@ -1,0 +1,3 @@
+com.eclipsesource.cluster.h2/bin
+com.eclipsesource.cluster.h2/*.db
+
