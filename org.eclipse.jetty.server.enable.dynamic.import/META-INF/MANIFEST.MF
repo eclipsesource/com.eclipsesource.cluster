@@ -3,6 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: org.eclipse.jetty.server.enable.dynamic.import
 Bundle-SymbolicName: org.eclipse.jetty.server.enable.dynamic.import
 Bundle-Version: 0.1.0.qualifier
-Fragment-Host: org.eclipse.jetty.server;bundle-version="7.4.2"
+Fragment-Host: org.eclipse.jetty.server;bundle-version="[7.4.0,8.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 DynamicImport-Package: *
